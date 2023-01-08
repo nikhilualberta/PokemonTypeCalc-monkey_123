@@ -1,0 +1,31 @@
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.flex-container > div {
+  margin: 10px;
+  padding: 20px;
+  font-size: 30px;
+}
+
+.flexList {
+  list-style: none;
+  padding: 0;
+  text-align: center;
+}
+
+.centerFlex{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 10px;
+}
+
+.logo {
+  width: auto;
+  max-width: 100%;
+  min-height: 15vh;
+  height: 15vh;
+}

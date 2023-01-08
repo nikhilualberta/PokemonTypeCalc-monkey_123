@@ -1,0 +1,71 @@
+
+<div class="centerFlex">
+<img class="images logo" src="assets/pokemontypecalc.png"/>
+<br />
+</div>
+
+<div class="centerFlex">
+
+  <mat-form-field>
+    <mat-select [(value)] = "usrInTwo" (valueChange)="multiply()">
+      <mat-select-trigger>
+        <img src="assets/{{usrInTwo}}.png">
+      </mat-select-trigger>
+      <mat-option *ngFor="let poketype of allTypes" [value]="poketype">
+        <img src="assets/{{poketype}}.png">
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
+  <mat-form-field>
+    <mat-select [(value)] = "usrInOne" (valueChange)="multiply()">
+      <mat-select-trigger>
+        <img src="assets/{{usrInOne}}.png">
+      </mat-select-trigger>
+      <mat-option *ngFor="let poketype of allTypes" [value]="poketype">
+        <img src="assets/{{poketype}}.png">
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+
+
+
+<div class="flex-container">
+  <div>
+    <ul class="flexList">
+      <li><h1><b>Super Effective</b></h1></li>
+      <li *ngFor="let poketype of superEffective">
+        <img src="assets/{{poketype}}.png">
+      </li>
+    </ul>
+  </div>
+  <div>
+    <ul class="flexList">
+      <li><h1><b>Not Effective</b></h1></li>
+      <li *ngFor="let poketype of notVeryEffective">
+        <img src="assets/{{poketype}}.png">
+      </li>
+    </ul>
+  </div>
+  <div>
+    <ul class="flexList">
+      <li><h1><b>Neutral</b></h1></li>
+      <li *ngFor="let poketype of neutral">
+        <img src="assets/{{poketype}}.png">
+      </li>
+    </ul>
+  </div>
+  <div>
+    <ul class="flexList">
+      <li><h1><b>Immune</b></h1></li>
+      <li *ngFor="let poketype of immune">
+        <img src="assets/{{poketype}}.png">
+      </li>
+    </ul>
+  </div>
+</div>
+
+
