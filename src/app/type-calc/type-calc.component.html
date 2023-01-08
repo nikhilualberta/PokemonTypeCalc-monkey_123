@@ -4,19 +4,46 @@
 <br />
 </div>
 
-<mat-form-field class="example-full-width" appearance="fill">
-  <mat-label>Assignee</mat-label>
-  <input type="text" matInput [matAutocomplete]="auto">
-  <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-      {{option.name}}
-    </mat-option>
-  </mat-autocomplete>
-</mat-form-field>
+<div class="centerFlex">
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Pokemon</mat-label>
+    <input type="text" matInput  [formControl]="myControl" [matAutocomplete]="auto" [errorStateMatcher]="matcher">
+
+    <mat-select-trigger *ngIf="pokemon !== ''">
+      <img src="assets/sprites/{{pokemon}}.png">
+    </mat-select-trigger>
+
+
+    <mat-error *ngIf="(filteredOptions | async)?.length == 0">
+      Please select a valid pokemon
+    </mat-error>
+
+
+    <mat-autocomplete #auto="matAutocomplete" (opened)="myControl.setValue(''); pokemon = ''" (optionSelected)="setTypes($event)" [displayWith]="displayFn">
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+        <img src="assets/sprites/{{option.name}}.png">{{option.name}}
+      </mat-option>
+    </mat-autocomplete>
+
+
+  </mat-form-field>
+</div>
 
 
 
 <div class="centerFlex">
+
+
+  <mat-form-field>
+    <mat-select [(value)] = "usrInOne" (valueChange)="multiply()">
+      <mat-select-trigger>
+        <img src="assets/{{usrInOne}}.png">
+      </mat-select-trigger>
+      <mat-option *ngFor="let poketype of allTypes" [value]="poketype">
+        <img src="assets/{{poketype}}.png">
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 
   <mat-form-field>
     <mat-select [(value)] = "usrInTwo" (valueChange)="multiply()">
@@ -30,16 +57,7 @@
   </mat-form-field>
 
 
-  <mat-form-field>
-    <mat-select [(value)] = "usrInOne" (valueChange)="multiply()">
-      <mat-select-trigger>
-        <img src="assets/{{usrInOne}}.png">
-      </mat-select-trigger>
-      <mat-option *ngFor="let poketype of allTypes" [value]="poketype">
-        <img src="assets/{{poketype}}.png">
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+
 </div>
 
 
@@ -49,16 +67,16 @@
   <div>
     <ul class="flexList">
       <li><h1><b>Super Effective</b></h1></li>
-      <li *ngFor="let poketype of superEffective">
-        <img src="assets/{{poketype}}.png">
+      <li *ngFor="let poketype of superEffective" >
+        <img src="assets/{{poketype}}.png" [class.superSuperEffect]="four.includes(poketype)" >
       </li>
     </ul>
   </div>
   <div>
     <ul class="flexList">
       <li><h1><b>Not Effective</b></h1></li>
-      <li *ngFor="let poketype of notVeryEffective">
-        <img src="assets/{{poketype}}.png">
+      <li *ngFor="let poketype of notVeryEffective" >
+        <img src="assets/{{poketype}}.png" [class.veryNotEffect]="quarter.includes(poketype)">
       </li>
     </ul>
   </div>
@@ -80,4 +98,11 @@
   </div>
 </div>
 
+<footer>
+  <p>
+    A <span style="color: mediumspringgreen">green</span> border signifies 4x super effectiveness
 
+  <br>
+    A <span style="color: red">red</span> border signifies 1/4x resistance
+  </p>
+</footer>
