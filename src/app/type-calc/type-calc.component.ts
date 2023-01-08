@@ -8,17 +8,17 @@ import {output} from "./types";
 })
 export class TypeCalcComponent {
   // The lists that store type affinities after we check the matchups calc
-  superEffective = ['grass', 'fire', 'water']
-  neutral = ['ghost']
-  notVeryEffective = ['steel']
-  immune = ['fairy']
+  superEffective:string[] = []
+  neutral:string[] = ["normal", "fire", "water", "grass", "electric", "ice", "fighting", "poison", "ground", "flying", "psychic", "bug", "rock", "ghost", "dark", "dragon", "steel", "fairy"]
+  notVeryEffective:string[] = []
+  immune:string[] = []
 
   four = []
   quarter = []
   allTypes = ["normal", "fire", "water", "grass", "electric", "ice", "fighting", "poison", "ground", "flying", "psychic", "bug", "rock", "ghost", "dark", "dragon", "steel", "fairy"]
 
-  usrInOne = "ghost";
-  usrInTwo = "flying";
+  usrInOne = "none";
+  usrInTwo = "none";
 
   // @ts-ignore
 
