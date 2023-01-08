@@ -29,3 +29,8 @@
   min-height: 15vh;
   height: 15vh;
 }
+
+
+.mat-mdc-select {
+  text-align: center;
+}

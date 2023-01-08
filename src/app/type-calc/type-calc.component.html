@@ -4,6 +4,18 @@
 <br />
 </div>
 
+<mat-form-field class="example-full-width" appearance="fill">
+  <mat-label>Assignee</mat-label>
+  <input type="text" matInput [matAutocomplete]="auto">
+  <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+      {{option.name}}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>
+
+
+
 <div class="centerFlex">
 
   <mat-form-field>

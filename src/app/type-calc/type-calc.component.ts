@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import {output} from "./types";
+import {FormControl} from "@angular/forms";
+import {map, Observable, startWith} from "rxjs";
 
 @Component({
   selector: 'app-type-calc',
@@ -9,13 +11,13 @@ import {output} from "./types";
 export class TypeCalcComponent {
   // The lists that store type affinities after we check the matchups calc
   superEffective:string[] = []
-  neutral:string[] = ["normal", "fire", "water", "grass", "electric", "ice", "fighting", "poison", "ground", "flying", "psychic", "bug", "rock", "ghost", "dark", "dragon", "steel", "fairy"]
+  neutral:string[] = ["none","normal", "fire", "water", "grass", "electric", "ice", "fighting", "poison", "ground", "flying", "psychic", "bug", "rock", "ghost", "dark", "dragon", "steel", "fairy"]
   notVeryEffective:string[] = []
   immune:string[] = []
 
   four = []
   quarter = []
-  allTypes = ["normal", "fire", "water", "grass", "electric", "ice", "fighting", "poison", "ground", "flying", "psychic", "bug", "rock", "ghost", "dark", "dragon", "steel", "fairy"]
+  allTypes = ["none","normal", "fire", "water", "grass", "electric", "ice", "fighting", "poison", "ground", "flying", "psychic", "bug", "rock", "ghost", "dark", "dragon", "steel", "fairy"]
 
   usrInOne = "none"
   usrInTwo = "none";
@@ -24,6 +26,7 @@ export class TypeCalcComponent {
 
 
   multiply(): void {
+    if (this.usrInOne == this.usrInTwo) {return}
     // @ts-ignore
     let type1 = output[this.usrInOne]
     // @ts-ignore
@@ -67,12 +70,28 @@ export class TypeCalcComponent {
     this.immune = immune
   }
 
-  returnUsrInOne(userInput: string): void {
-    this.usrInOne = userInput
+  myControl = new FormControl<string | any>('');
+  options: any[] = [{name: 'Mary'}, {name: 'Shelley'}, {name: 'Igor'}];
+  filteredOptions: Observable<any[]> | undefined;
+
+  ngOnInit() {
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => {
+        const name = typeof value === 'string' ? value : value?.name;
+        return name ? this._filter(name as string) : this.options.slice();
+      }),
+    );
   }
 
-  returnUsrInTwo(userInput: string): void {
-    this.usrInTwo = userInput
+  displayFn(user: any): string {
+    return user && user.name ? user.name : '';
+  }
+
+  private _filter(name: string): any[] {
+    const filterValue = name.toLowerCase();
+
+    return this.options.filter(option => option.name.toLowerCase().includes(filterValue));
   }
 
 
